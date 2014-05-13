@@ -13,11 +13,11 @@ The main website for the book is http://javafortesters.com/
 
 You can purchase the book on leanpub: https://leanpub.com/javaForTesters
 
-http://www.eviltester.com
-http://www.seleniumsimplified.com
-http://www.javafortesters.com
-http://www.compendiumdev.co.uk
-Twitter: @eviltester
+* http://www.eviltester.com
+* http://www.seleniumsimplified.com
+* http://www.javafortesters.com
+* http://www.compendiumdev.co.uk
+* Twitter: @eviltester
 
 ### Note:
 This code is an extract from the actual source used to create the book. The actual source has embedded macros to allow the book to be automatically generated. While the extraction process has been tested, it may still contain errors. If you find differences from the book, or discover errors in this code, please let the author know. All tests have been run prior to the source release.
