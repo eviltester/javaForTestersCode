@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class IntegerTestExamples {
+public class IntegerExamplesTest {
 
     @Test
     public void integerExploration(){

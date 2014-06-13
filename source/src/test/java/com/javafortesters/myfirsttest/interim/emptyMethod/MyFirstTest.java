@@ -1,4 +1,4 @@
-package com.javafortesters.myfirsttest.empty.emptyMethod;
+package com.javafortesters.myfirsttest.interim.emptyMethod;
 
 public class MyFirstTest {
 

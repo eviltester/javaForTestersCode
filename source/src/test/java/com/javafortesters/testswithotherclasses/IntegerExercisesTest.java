@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class IntegerExercises {
+public class IntegerExercisesTest {
 
     @Test
     public void canConfirmIntMinAndMaxLimits(){

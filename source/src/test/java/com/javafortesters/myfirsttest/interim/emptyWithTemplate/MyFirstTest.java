@@ -1,4 +1,4 @@
-package com.javafortesters.myfirsttest.empty.emptyWithTemplate;
+package com.javafortesters.myfirsttest.interim.emptyWithTemplate;
 
 /**
  * Created with IntelliJ IDEA.

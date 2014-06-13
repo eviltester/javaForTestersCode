@@ -10,7 +10,7 @@ public class TestAppEnv {
 */
 
 
-package com.javafortesters.domainobject.empty;
+package com.javafortesters.domainobject.interim;
 
 public class TestAppEnv {
 

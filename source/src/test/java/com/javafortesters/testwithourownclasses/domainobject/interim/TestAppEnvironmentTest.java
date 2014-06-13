@@ -6,7 +6,7 @@ public class TestAppEnvironmentTest {
 */
 
 
-package com.javafortesters.testwithourownclasses.domainobject.empty;
+package com.javafortesters.testwithourownclasses.domainobject.interim;
 
 import org.junit.Test;
 

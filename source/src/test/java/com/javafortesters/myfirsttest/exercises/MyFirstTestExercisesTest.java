@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 
-public class MyFirstTestExercises {
+public class MyFirstTestExercisesTest {
 
     @Test
     public void canAddTwoPlusTwo(){

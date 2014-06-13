@@ -1,4 +1,4 @@
-package com.javafortesters.myfirsttest.empty.emptyMethodTestAnnotated;
+package com.javafortesters.myfirsttest.interim.emptyMethodTestAnnotated;
 
 
 import org.junit.Test;
