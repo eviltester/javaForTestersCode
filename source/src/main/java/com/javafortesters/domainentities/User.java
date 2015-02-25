@@ -2,14 +2,12 @@ package com.javafortesters.domainentities;
 
 public class User {
 
-
     private String username;
     private String password;
 
     public User(){
         this("username", "password");
     }
-
 
     public User(String username, String password) {
         this.username = username;
