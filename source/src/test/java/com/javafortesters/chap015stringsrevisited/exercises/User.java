@@ -1,4 +1,6 @@
-package com.javafortesters.domainentities.interim.exceptions.custom;
+package com.javafortesters.chap015stringsrevisited.exercises;
+
+import com.javafortesters.domainentities.interim.exceptions.custom.InvalidPassword;
 
 public class User {
 
@@ -7,7 +9,7 @@ public class User {
     private String password;
 
     public User(){
-            this("username", "password", false);
+            this("username", "Passw0rd", false);
     }
 
     private User(String username, String password, boolean b) {
@@ -26,9 +28,21 @@ public class User {
         setPassword(password);
     }
 
+
     public void setPassword(String password) throws InvalidPassword {
+
       if(password.length()<7){
          throw new InvalidPassword("Password must be > 6 chars");
+      }
+
+      if(!password.matches(".*[0123456789]+.*")){
+         throw new InvalidPassword(
+                            "Password must have a digit");
+      }
+
+      if(!password.matches(".*[A-Z]+.*")){
+         throw new InvalidPassword(
+                            "Password must have an Uppercase Letter");
       }
 
       this.password = password;
@@ -41,5 +55,4 @@ public class User {
     public String getPassword() {
         return password;
     }
-
 }

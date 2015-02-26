@@ -36,9 +36,3 @@ public class UserComparator implements Comparator {
         return val;
     }
 }
-
-/*
-// add the following line just before return val; to see the comparator in action
-   System.out.println("Compare " + user1.getUsername() +
-                     " with " + user2.getUsername() + " = " + val);
-*/
