@@ -36,7 +36,7 @@ public class OperatorsTest {
         assertEquals("*= multiplies by", 16, num);
 
         num /= 4;
-        assertEquals("*= multiplies by", 4, num);
+        assertEquals("/= divides by", 4, num);
 
         num %=3;
         assertEquals("%= modulus of", 1, num);
