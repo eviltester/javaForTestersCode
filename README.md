@@ -20,7 +20,9 @@ You can purchase the book on leanpub: https://leanpub.com/javaForTesters
 * Twitter: @eviltester
 
 ### Note:
-This code is an extract from the actual source used to create the book. The actual source has embedded macros to allow the book to be automatically generated. While the extraction process has been tested, it may still contain errors. If you find differences from the book, or discover errors in this code, please let the author know. All tests have been run prior to the source release.
+This code is an extract from the actual source used to create the book. The actual source has embedded macros to allow the book to be automatically generated. While the extraction process has been tested, it may still contain errors. If you find differences from the book, or discover errors in this code, please let the author know. All @Test code has been run prior to the source release.
+
+You can see a cloud build of the code provided by [travis-ci.orgtravis-ci.org/eviltester/javaForTestersCode](https://travis-ci.org/eviltester/javaForTestersCode) Only file system level tests are excluded from the cloud build.
 
 License
 -------
