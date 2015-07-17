@@ -35,6 +35,7 @@
                     <excludes>
                         <!-- exclude file tests from travis-ci.org execution -->
                         <exclude>**/FileTest.java</exclude>
+                        <exclude>**/FileExercisesTest.java</exclude>
                         <exclude>**/PropertiesTest.java</exclude>
                         <exclude>**/PropertyExercisesTest.java</exclude>
                     </excludes>
