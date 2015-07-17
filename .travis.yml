@@ -1,2 +1,2 @@
 language: java
-script: mvn test -f ./source/pom.xml
+script: mvn test -f ./source/travis-ci-pom.xml
