@@ -79,7 +79,9 @@ public class DateTimeExercisesTest {
         // week of month depends on first day of week
         // some places use SUNDAY as first day
         // set to MONDAY for our calculation
+        // and control Minimdal Days in First Week
         cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.setMinimalDaysInFirstWeek(6);
 
         assertThat(cal.get(Calendar.DAY_OF_WEEK), is(1));
         assertThat(cal.get(Calendar.DAY_OF_WEEK), is(Calendar.SUNDAY));
