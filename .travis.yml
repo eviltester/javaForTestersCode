@@ -1,5 +1,5 @@
 language: java
-script: mvn test -f ./source/travis-ci-pom.xml
+script: mvn test -f ./source/pom.xml
 jdk:
   - oraclejdk8
   - oraclejdk7
