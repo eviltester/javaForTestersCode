@@ -89,10 +89,10 @@ public class DateTimeExercisesTest {
         cal.setFirstDayOfWeek(Calendar.MONDAY);
         cal.setMinimalDaysInFirstWeek(6);
         assertThat(cal.get(Calendar.WEEK_OF_MONTH), is(2));
-		
-		// Week of the year, similarly requires the
-		// config to control first day
-		assertThat(cal.get(Calendar.WEEK_OF_YEAR), is(50));
+
+        // Week of the year, similarly requires the
+        // config to control first day
+        assertThat(cal.get(Calendar.WEEK_OF_YEAR), is(50));
     }
 
     @Test
