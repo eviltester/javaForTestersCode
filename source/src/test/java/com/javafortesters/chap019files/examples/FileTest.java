@@ -1,17 +1,31 @@
 package com.javafortesters.chap019files.examples;
 
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.StringEndsWith.endsWith;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FileTest {
 
+
+    // when running cross platform there are differences to be aware of
+    // the system properties may not have a / at the end
+    // and building file paths by hand can be problematic requiring
+    // lots of care
+    // so we use the Paths.get instead
+    // http://docs.oracle.com/javase/7/docs/api/java/nio/file/Paths.html
+    // Then use the returned Path object toFile to create the file object
+    // Both Path and Paths have been available since Java 1.7
+    // https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html
 
 
     @Test
@@ -20,7 +34,29 @@ public class FileTest {
         assertThat(aTempFile.exists(), is(false));
     }
 
+    @Test
+    public void pathsGetExampleForCrossPlatform() throws IOException {
 
+        String tempDir = System.getProperty("java.io.tmpdir");
+
+        // you would probably just use File for this one
+        File theFile = Paths.get(tempDir, "file.txt").toFile();
+        assertThat(theFile.getAbsolutePath(),
+                    endsWith(File.separator + "file.txt"));
+
+        theFile = Paths.get(tempDir, "temp1", "file.txt").toFile();
+        assertThat(theFile.getAbsolutePath(),
+                endsWith(String.format("%s%s%1$s%s",
+                            File.separator, "temp1", "file.txt")));
+
+        theFile = Paths.get(tempDir, "temp1","temp2", "temp3", "file.txt").toFile();
+        assertThat(theFile.getAbsolutePath(),
+                endsWith(String.format("%s%s%1$s%s%1$s%s%1$s%s",
+                            File.separator, "temp1", "temp2", "temp3", "file.txt")));
+    }
+
+
+/*
     @Test
     public void createAFileAndDeleteIt() throws IOException {
         File aTempFile = new File("d:/tempJavaForTesters.txt");
@@ -32,11 +68,21 @@ public class FileTest {
         aTempFile.delete();
         assertThat(aTempFile.exists(), is(false));
     }
+*/
 
+    // since the above example is commented out
+    // this checks that the basic code works
+    // in a platform independent way using Paths
     @Test
-    public void createAFileAndDeleteItAlternativeConstructor() throws IOException {
+    public void createAFileAndDeleteItCodeCheck() throws IOException {
 
-        File aTempFile = new File("d:", "tempJavaForTesters.txt");
+        /* for documentation of simple path
+        File aTempFile = Paths.get("d:", "tempJavaForTesters.txt").toFile();
+        */
+
+        String tempDir = System.getProperty("java.io.tmpdir");
+        File aTempFile = Paths.get(tempDir, "tempJavaForTesters.txt").toFile();
+
         assertThat(aTempFile.exists(), is(false));
 
         aTempFile.createNewFile();
@@ -45,6 +91,41 @@ public class FileTest {
         aTempFile.delete();
         assertThat(aTempFile.exists(), is(false));
     }
+
+
+    @Test
+    public void createAFileAndDeleteItAlternativeConstructor() throws IOException {
+
+        String tempDir = System.getProperty("java.io.tmpdir");
+        File aTempFile = new File(tempDir, "tempJavaForTesters.txt");
+        assertThat(aTempFile.exists(), is(false));
+
+        aTempFile.createNewFile();
+        assertThat(aTempFile.exists(), is(true));
+
+        aTempFile.delete();
+        assertThat(aTempFile.exists(), is(false));
+    }
+
+    @Test
+    public void createLongerPathExample(){
+
+        String tempDirectory = System.getProperty("java.io.tmpdir");
+        File aFile = new File(tempDirectory);
+        aFile = new File(aFile, "1");
+        aFile = new File(aFile, "2");
+        aFile = new File(aFile, "3");
+        aFile = new File(aFile, "4");
+
+        // make it an easy cross platform comparison
+        String filePathWithDots = aFile.getAbsolutePath().replace(File.separator, ".");
+        assertTrue(filePathWithDots.endsWith(".1.2.3.4"));
+
+        Path aPath = Paths.get(tempDirectory, "1", "2", "3", "4");
+        assertEquals(aFile.getAbsolutePath(),
+                     aPath.toFile().getAbsolutePath());
+    }
+
 
 
     @Test
@@ -73,9 +154,10 @@ public class FileTest {
         aFile.mkdirs();
 
         System.out.println(oneDirectory.getAbsolutePath());
+        System.out.println(oneDirectory.getCanonicalPath());
         System.out.println(aFile.getAbsolutePath());
 
-        assertThat(oneDirectory.getAbsolutePath(), is(oneDirectory.getCanonicalPath()));
+        assertTrue(oneDirectory.getCanonicalPath().endsWith(oneDirectory.getAbsolutePath()));
 
         File relative = new File(tempDirectory, currentMillis);
         relative = new File(relative, "1");
@@ -88,7 +170,7 @@ public class FileTest {
 
         System.out.println(relative.getAbsolutePath());
 
-        assertThat(oneDirectory.getAbsolutePath(), is(relative.getCanonicalPath()));
+        assertTrue(relative.getCanonicalPath().endsWith(oneDirectory.getAbsolutePath()));
 
         relative = new File(tempDirectory, currentMillis);
         relative = new File(relative, "1");
@@ -99,7 +181,7 @@ public class FileTest {
 
         System.out.println(relative.getAbsolutePath());
 
-        assertThat(oneDirectory.getAbsolutePath(), is(relative.getCanonicalPath()));
+        assertTrue(relative.getCanonicalPath().endsWith(oneDirectory.getAbsolutePath()));
     }
 
 
@@ -107,11 +189,11 @@ public class FileTest {
     public void mkdirsCreatesIntermediateDirs(){
 
         String tempDirectory = System.getProperty("java.io.tmpdir");
-        String newDirectoryStructure =  tempDirectory +
-                                        System.currentTimeMillis() +
-                                        File.separator +
-                                        System.currentTimeMillis();
-        File aDirectory = new File(newDirectoryStructure);
+
+        File aDirectory = Paths.get(tempDirectory,
+                                    Long.toString(System.currentTimeMillis()),
+                                    Long.toString(System.currentTimeMillis()))
+                                .toFile();
 
         System.out.println(aDirectory.getAbsolutePath());
 
@@ -125,32 +207,35 @@ public class FileTest {
 
         String tempDirectory = System.getProperty("java.io.tmpdir");
 
-        String newDirectoryStructure =  tempDirectory +
-                                        System.currentTimeMillis();
-                                        //File.separator +
-                                        //System.currentTimeMillis();
+        File aFilePath = Paths.get(tempDirectory,
+                                    Long.toString(System.currentTimeMillis()),
+                                    "test.tmp")
+                                .toFile();
 
-        System.out.println(newDirectoryStructure);
+        System.out.println(aFilePath.getAbsolutePath());
 
         // mkdir won't create this because it is temp/millis/test.tmp
-        File aDirectory = new File(newDirectoryStructure, "test.tmp");
-        assertThat(aDirectory.mkdir(), is(false));
-        assertThat(aDirectory.exists(), is(false));
 
-        // will create because it is just the temp/millis
-        aDirectory = new File(newDirectoryStructure);
-        assertThat(aDirectory.mkdir(), is(true));
+        assertThat(aFilePath.mkdir(), is(false));
+        assertThat(aFilePath.exists(), is(false));
+
+        // mkdir will create because it is just the temp/millis
+        File aDirectoryPath = Paths.get(tempDirectory,
+                                        Long.toString(System.currentTimeMillis()))
+                                    .toFile();
+
+        assertThat(aDirectoryPath.mkdir(), is(true));
 
     }
 
     @Test
     public void fileAndPathSeparator(){
-        Assert.assertTrue("Unrecognised OS file separator",
-                File.separator.equals("\\") ||
-                File.separator.equals("/") );
-        Assert.assertTrue("Unrecognised OS path separator",
-                File.pathSeparator.equals(";") ||
-                File.pathSeparator.equals(":") );
+        assertTrue("Unrecognised OS file separator",
+                        File.separator.equals("\\") ||
+                        File.separator.equals("/"));
+        assertTrue("Unrecognised OS path separator",
+                        File.pathSeparator.equals(";") ||
+                        File.pathSeparator.equals(":"));
     }
 
     @Test
@@ -167,8 +252,8 @@ public class FileTest {
             assertThat( aTempFile.getName().startsWith("prefix"), is(true));
             assertThat( aTempFile.getName().endsWith("suffix"), is(true));
 
-            assertThat( aTempFile.getParent() + File.separator,
-                        is(System.getProperty("java.io.tmpdir")));
+            assertTrue(System.getProperty("java.io.tmpdir").
+                    startsWith(aTempFile.getParent()));
 
             assertThat(aTempFile.getAbsolutePath().endsWith("suffix"),
                        is(true));
@@ -177,8 +262,8 @@ public class FileTest {
 
             assertThat(aTempFile.getCanonicalPath().endsWith("suffix"),
                        is(true));
-            assertThat(aTempFile.getCanonicalPath().startsWith(
-                        System.getProperty("java.io.tmpdir")), is(true));
+            assertThat(aTempFile.getCanonicalPath().contains(
+                    System.getProperty("java.io.tmpdir")), is(true));
 
             assertThat(aTempFile.exists(), is(true));
 

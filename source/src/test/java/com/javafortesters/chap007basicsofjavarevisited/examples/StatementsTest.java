@@ -12,8 +12,8 @@ public class StatementsTest {
         assertEquals(4, 2+2);
 
         assertEquals("2+2 always = 4",
-                    4,
-                    2+2);
+                     4,
+                     2+2);
 
     }
 }

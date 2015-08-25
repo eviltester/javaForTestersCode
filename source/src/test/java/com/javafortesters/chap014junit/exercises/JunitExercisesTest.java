@@ -46,7 +46,16 @@ public class JunitExercisesTest {
     public void assertThatWithHamcrestMatchers(){
 
         assertThat(3 + 3, is(6));
+
+        /* failing assert used to generate message in book
+        assertThat(3 + 3, is(7));
+        */
+
         assertThat("3 + 3 = 6", 3 + 3, is(6));
+
+                /* failing assert used to generate message in book
+        assertThat("3 + 3 = 6", 3 + 3, is(7));
+        */
 
         assertThat("false is false", false, equalTo(false));
         assertThat(false, is(false));

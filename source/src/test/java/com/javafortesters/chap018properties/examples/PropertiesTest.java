@@ -84,8 +84,9 @@ public class PropertiesTest {
 
         String tempDirectory = System.getProperty("java.io.tmpdir");
         String tempResourceFilePath =
-                    tempDirectory +
-                    "tempFileForPropertiesStoreTest.properties";
+                    new File(tempDirectory,
+                        "tempFileForPropertiesStoreTest.properties")
+                            .getAbsolutePath();
 
         Properties saved = new Properties();
         saved.setProperty("prop1", "Hello");

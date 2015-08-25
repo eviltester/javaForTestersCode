@@ -75,19 +75,21 @@ public class DateTimeExercisesTest {
     @Test
     public void experimentWithCalendarConstants(){
         Calendar cal = Calendar.getInstance();
-        cal.set(2013, Calendar.DECEMBER, 15, 23,39, 54);
-        // week of month depends on first day of week
-        // some places use SUNDAY as first day
-        // set to MONDAY for our calculation
-        // and control Minimdal Days in First Week
-        cal.setFirstDayOfWeek(Calendar.MONDAY);
-        cal.setMinimalDaysInFirstWeek(6);
+        cal.set(2013, Calendar.DECEMBER, 15, 23, 39, 54);
+
 
         assertThat(cal.get(Calendar.DAY_OF_WEEK), is(1));
         assertThat(cal.get(Calendar.DAY_OF_WEEK), is(Calendar.SUNDAY));
-        assertThat(cal.get(Calendar.WEEK_OF_MONTH), is(2));
         assertThat(cal.get(Calendar.WEEK_OF_YEAR), is(50));
         assertThat(cal.get(Calendar.DAY_OF_YEAR), is(349));
+
+        // week of month depends on first day of week
+        // some places use SUNDAY as first day
+        // set to MONDAY for our calculation
+        // and control Minimal Days in First Week
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.setMinimalDaysInFirstWeek(6);
+        assertThat(cal.get(Calendar.WEEK_OF_MONTH), is(2));
     }
 
     @Test

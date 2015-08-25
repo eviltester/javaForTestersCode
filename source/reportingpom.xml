@@ -15,7 +15,7 @@
         http://maven.apache.org/surefire/maven-surefire-plugin/usage.html
         http://maven.apache.org/surefire/maven-surefire-report-plugin/report-mojo.html
 
-        mvn clean test -Dmaven.source=reportingpom.xml
+        mvn clean surefire-report:report -Dmaven.source=reportingpom.xml
         -->
 
     <properties>

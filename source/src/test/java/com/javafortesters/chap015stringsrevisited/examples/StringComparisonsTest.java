@@ -33,7 +33,7 @@ public class StringComparisonsTest {
         assertThat(hello.contains("He"), is(true));
         assertThat(hello.contains("Hello"), is(true));
 
-        assertThat(hello.contains("he"), is(false));
+        assertThat(hello.contains("LL"), is(false));
 
         assertThat(hello.contains("z"), is(false));
         assertThat(hello.contains("world"), is(false));
@@ -105,6 +105,22 @@ public class StringComparisonsTest {
         String hello = "Hello fella";
         assertThat(
                 hello.regionMatches(true, 6, "fez", 0, 2),
+                is(true));
+
+        // case insensitive search
+        assertThat(
+                hello.regionMatches(true, 0, "he", 0, 2),
+                is(true));
+
+        // case sensitive search
+        assertThat(
+                hello.regionMatches(false, 0, "hE", 0, 2),
+                is(false));
+        assertThat(
+                hello.regionMatches(0, "hE", 0, 2),
+                is(false));
+        assertThat(
+                hello.regionMatches(0, "He", 0, 2),
                 is(true));
 
         assertFalse(

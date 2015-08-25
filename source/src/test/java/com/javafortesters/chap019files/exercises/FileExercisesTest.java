@@ -14,7 +14,8 @@ public class FileExercisesTest {
 
     @Test
     public void createTempFileVaryTheParameters() throws IOException {
-        // on windows these files are in %TEMP%
+        // on Windows these files are in %TEMP%
+        // on Mac these files are in $TMPDIR
         File temp1 = File.createTempFile("temp1", null);
         File temp2 = File.createTempFile("temp2OutFile", ".out");
 
@@ -62,15 +63,35 @@ public class FileExercisesTest {
         File absolute2 = new File("C:/1/2/../../1");
         File canonical = new File("C:/1");
 
-        assertThat(canonical.getAbsolutePath(),
-                is(canonical.getCanonicalPath()));
-        assertThat(canonical.getAbsolutePath(),
-                is(absolute1.getCanonicalPath()));
-        assertThat(canonical.getAbsolutePath(),
-                is(absolute2.getCanonicalPath()));
+        assertThat(trimOsStuff(
+                        canonical.getAbsolutePath()),
+                is(trimOsStuff(
+                        canonical.getCanonicalPath())));
+        assertThat(trimOsStuff(
+                        canonical.getAbsolutePath()),
+                is(trimOsStuff(
+                        absolute1.getCanonicalPath())));
+        assertThat(trimOsStuff(
+                        canonical.getAbsolutePath()),
+                is(trimOsStuff(
+                        absolute2.getCanonicalPath())));
 
         assertThat(absolute1.getAbsolutePath().contains(".."), is(true));
         assertThat(absolute2.getAbsolutePath().contains(".."), is(true));
+    }
+
+    // The above code runs fine on a Mac and Windows without needing
+    // trimOsStuff
+    // but on Linux, it seems to add a ./ in the middle of the absolute path
+    // e.g. /home/travis/build/eviltester/javaForTestersCode/./source/C:/1
+    // So I add the following method to trim out the operating system addition to
+    // the path e.g. anything before the C:
+    private String trimOsStuff(String absolutePath) {
+        int posOfDrive = absolutePath.indexOf("C:");
+        String pathWithoutOsPrefixes = absolutePath.substring(posOfDrive);
+        System.out.println(String.format(
+                "trimOsStuff: %s became %s",absolutePath, pathWithoutOsPrefixes));
+        return pathWithoutOsPrefixes;
     }
 
 

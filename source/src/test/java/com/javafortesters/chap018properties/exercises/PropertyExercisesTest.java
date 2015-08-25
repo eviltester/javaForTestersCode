@@ -52,10 +52,10 @@ public class PropertyExercisesTest {
     public void canSaveAndLoadAPropertiesFile() throws IOException {
 
         String tempDirectory = System.getProperty("java.io.tmpdir");
-        String tempResourceFilePath = tempDirectory +
-                System.currentTimeMillis() +
-                System.nanoTime() +
-                ".properties";
+        String tempResourceFilePath = new File(tempDirectory,
+                                            System.currentTimeMillis() +
+                                            System.nanoTime() +
+                                            ".properties").getAbsolutePath();
 
         Properties saved = new Properties();
 
