@@ -20,11 +20,11 @@ public class IntegerExercisesTest {
     public void canConvertIntToHex(){
         assertEquals("hex 11 is b", "b",
                 Integer.toHexString(11));
-        assertEquals("hex 10 is b", "a",
+        assertEquals("hex 10 is a", "a",
                 Integer.toHexString(10));
-        assertEquals("hex 3 is b", "3",
+        assertEquals("hex 3 is 3", "3",
                 Integer.toHexString(3));
-        assertEquals("hex 21 is b", "15",
+        assertEquals("hex 21 is 15", "15",
                 Integer.toHexString(21));
     }
 }
